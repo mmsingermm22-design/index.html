@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08060f">
+<title>Voxistar — Voice. Community. Connection.</title>
+<style>
+:root{
+  --bg:#08060f;--panel:#100c1d;--panel2:#151025;--text:#fff;
+  --muted:#aaa4b5;--purple:#a35cff;--blue:#63b8ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:Inter,Arial,sans-serif;line-height:1.5;overflow-x:hidden
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,92%);margin:auto}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(8,6,15,.76);backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.07)
+}
+.navbar{height:76px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:800}
+.logo{width:45px;height:45px;object-fit:contain;filter:drop-shadow(0 0 13px rgba(163,92,255,.65))}
+.links{display:flex;align-items:center;gap:28px}
+.links a{font-size:14px;color:#d6d1df;transition:.25s}
+.links a:hover{color:#c996ff}
+.nav-cta{padding:10px 17px!important;border-radius:10px;background:#fff!important;color:#100b19!important;font-weight:800}
+.menu{display:none;border:0;background:none;color:#fff;font-size:27px}
+
+/* HERO */
+.hero{
+  min-height:100vh;padding:145px 0 90px;display:flex;align-items:center;
+  background:
+    radial-gradient(circle at 72% 30%,rgba(136,65,255,.28),transparent 27%),
+    radial-gradient(circle at 15% 65%,rgba(57,144,255,.10),transparent 25%);
+  position:relative
+}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.eyebrow{
+  display:inline-block;padding:8px 13px;border:1px solid rgba(186,126,255,.25);
+  border-radius:999px;background:rgba(163,92,255,.09);color:#d3aaff;
+  font-size:12px;font-weight:800;letter-spacing:1.5px;margin-bottom:20px
+}
+h1{font-size:clamp(52px,7vw,88px);line-height:.98;letter-spacing:-4px}
+.gradient{
+  background:linear-gradient(100deg,#fff 0%,#c994ff 48%,#75c6ff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.hero-text{font-size:18px;color:var(--muted);max-width:590px;margin:25px 0 30px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:14px 22px;border-radius:12px;font-size:14px;font-weight:800;transition:.25s
+}
+.primary{background:linear-gradient(135deg,#a35cff,#687eff);box-shadow:0 14px 40px rgba(122,70,255,.28)}
+.primary:hover{transform:translateY(-2px)}
+.secondary{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.045)}
+.secondary:hover{background:rgba(255,255,255,.09)}
+.hero-visual{
+  height:520px;border-radius:34px;position:relative;overflow:hidden;
+  border:1px solid rgba(255,255,255,.1);
+  background:
+    radial-gradient(circle at 50% 45%,rgba(157,74,255,.25),transparent 28%),
+    linear-gradient(145deg,#181126,#0b0813);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 35px 100px rgba(0,0,0,.42)
+}
+.hero-visual:before,.hero-visual:after{
+  content:"";position:absolute;border:1px solid rgba(176,103,255,.22);border-radius:50%
+}
+.hero-visual:before{width:370px;height:370px}
+.hero-visual:after{width:470px;height:470px}
+.big-logo{width:190px;height:190px;object-fit:contain;z-index:2;filter:drop-shadow(0 0 38px rgba(161,80,255,.8))}
+.pill{
+  position:absolute;padding:10px 14px;border-radius:12px;
+  background:rgba(10,7,18,.72);border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(12px);font-size:12px;color:#e8e2ef
+}
+.p1{top:35px;left:30px}.p2{top:100px;right:25px}.p3{bottom:45px;right:35px}
+
+/* COMMON */
+section{padding:105px 0}
+.center{text-align:center}
+.kicker{font-size:12px;font-weight:800;letter-spacing:2.5px;color:#b779ff;text-transform:uppercase}
+.title{font-size:clamp(36px,5vw,57px);line-height:1.08;margin:10px 0 14px;letter-spacing:-1.5px}
+.desc{max-width:680px;margin:auto;color:var(--muted);font-size:16px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.feature{
+  padding:31px;border-radius:22px;background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.075);transition:.3s
+}
+.feature:hover{transform:translateY(-6px);border-color:rgba(168,97,255,.35)}
+.feature-icon{
+  width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(163,92,255,.25),rgba(82,139,255,.14));
+  font-size:25px;margin-bottom:19px
+}
+.feature h3{font-size:20px;margin-bottom:8px}.feature p{color:var(--muted);font-size:14px}
+
+/* ABOUT */
+.about{background:linear-gradient(180deg,transparent,rgba(123,53,220,.055),transparent)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.about-box{
+  min-height:420px;border-radius:30px;padding:35px;
+  background:linear-gradient(145deg,#171025,#0c0914);
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center
+}
+.about-box-inner{text-align:center}.about-box-inner .logo{width:125px;height:125px}
+.about-box-inner h3{font-size:28px;margin-top:16px}
+.about-copy h2{font-size:clamp(35px,5vw,55px);line-height:1.08;margin:10px 0 18px}
+.about-copy p{color:var(--muted);margin-bottom:25px}
+.checks{list-style:none;display:grid;gap:11px;color:#ddd6e6;font-size:14px}
+.checks li:before{content:"✓";color:#bc83ff;font-weight:900;margin-right:10px}
+
+/* SHOWCASE */
+.showcase-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:45px}
+.showcase{
+  min-height:230px;padding:25px;border-radius:23px;
+  background:linear-gradient(145deg,#171022,#0d0915);
+  border:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;justify-content:flex-end
+}
+.showcase strong{font-size:18px}.showcase span{color:#9992a3;font-size:13px;margin-top:4px}
+
+/* PEOPLE */
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:45px}
+.person{
+  padding:25px;border-radius:22px;background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.075)
+}
+.avatar{
+  height:220px;border-radius:18px;margin-bottom:18px;
+  background:linear-gradient(145deg,#24163b,#0e0a16);
+  display:flex;align-items:center;justify-content:center;font-size:65px
+}
+.person h3{font-size:19px}.person p{color:#968f9f;font-size:13px}
+
+/* CAREERS */
+.career-wrap{padding:65px;border-radius:32px;text-align:center;
+ background:radial-gradient(circle at 50% 0%,rgba(163,92,255,.24),transparent 45%),#100b1c;
+ border:1px solid rgba(180,115,255,.16)}
+.career-wrap h2{font-size:clamp(35px,5vw,58px);margin:10px 0}
+.career-wrap p{color:var(--muted);max-width:650px;margin:0 auto 25px}
+
+/* FOOTER */
+footer{padding:65px 0 25px;border-top:1px solid rgba(255,255,255,.07)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:35px}
+.footer-desc{color:#8f8998;font-size:13px;max-width:330px;margin-top:12px}
+footer h4{margin-bottom:13px;font-size:14px}
+footer a{display:block;color:#8f8998;font-size:13px;margin:8px 0}
+footer a:hover{color:#c99aff}
+.copyright{text-align:center;color:#66606d;font-size:11px;border-top:1px solid rgba(255,255,255,.06);margin-top:40px;padding-top:20px}
+
+/* MOBILE */
+@media(max-width:850px){
+ .links{display:none;position:absolute;top:72px;left:4%;right:4%;padding:13px;flex-direction:column;gap:0;
+ background:rgba(12,8,21,.98);border:1px solid rgba(255,255,255,.1);border-radius:18px}
+ .links.open{display:flex}.links a{width:100%;padding:12px;border-bottom:1px solid rgba(255,255,255,.05)}
+ .links a:last-child{border:0}.menu{display:block}
+ .hero-grid,.split{grid-template-columns:1fr}.hero-visual{height:360px;order:-1}
+ .features,.people{grid-template-columns:1fr}.showcase-grid{grid-template-columns:1fr 1fr}
+ .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:500px){
+ h1{letter-spacing:-3px}.hero{padding-top:115px}.hero-text{font-size:16px}
+ .showcase-grid,.footer-grid{grid-template-columns:1fr}.career-wrap{padding:38px 22px}
+ .hero-visual{height:310px}.big-logo{width:135px;height:135px}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+ <div class="container navbar">
+  <a href="#home" class="brand"><img src="logo.png" class="logo" alt="Voxistar"><span>Voxistar</span></a>
+  <button class="menu" onclick="toggleMenu()">☰</button>
+  <nav class="links" id="links">
+   <a href="#home" onclick="closeMenu()">Home</a>
+   <a href="#about" onclick="closeMenu()">About</a>
+   <a href="#features" onclick="closeMenu()">Features</a>
+   <a href="#team" onclick="closeMenu()">Team</a>
+   <a href="#careers" onclick="closeMenu()">Careers</a>
+   <a href="#contact" class="nav-cta" onclick="closeMenu()">Contact</a>
+  </nav>
+ </div>
+</header>
+
+<section class="hero" id="home">
+ <div class="container hero-grid">
+  <div>
+   <span class="eyebrow">✦ THE OFFICIAL VOXISTAR EXPERIENCE</span>
+   <h1>Voice brings<br><span class="gradient">people together.</span></h1>
+   <p class="hero-text">Voxistar is a modern social community built for connection, voice and memorable experiences.</p>
+   <div class="actions">
+    <a class="btn primary" href="#features">Discover Voxistar →</a>
+    <a class="btn secondary" href="#careers">Join the team</a>
+   </div>
+  </div>
+  <div class="hero-visual">
+   <span class="pill p1">VOICE COMMUNITY</span>
+   <span class="pill p2">Connect • Create</span>
+   <span class="pill p3">Voxistar ✦</span>
+   <img src="logo.png" class="big-logo" alt="Voxistar Logo">
+  </div>
+ </div>
+</section>
+
+<section id="features">
+ <div class="container center">
+  <span class="kicker">Why Voxistar</span>
+  <h2 class="title">Made for connection.</h2>
+  <p class="desc">Everything we build is designed around people, communication and a better community experience.</p>
+  <div class="features">
+   <div class="feature"><div class="feature-icon">🎙️</div><h3>Voice First</h3><p>Bring conversations to life through a voice-focused experience.</p></div>
+   <div class="feature"><div class="feature-icon">🌎</div><h3>Real Community</h3><p>Connect with people and build meaningful communities.</p></div>
+   <div class="feature"><div class="feature-icon">✨</div><h3>Modern Experience</h3><p>Clean design, smooth interactions and a premium feel.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="about" id="about">
+ <div class="container split">
+  <div class="about-box">
+   <div class="about-box-inner">
+    <img src="logo.png" class="logo" alt="Voxistar">
+    <h3>Voxistar</h3>
+    <p style="color:#9992a3">Voice • Community • Connection</p>
+   </div>
+  </div>
+  <div class="about-copy">
+   <span class="kicker">About us</span>
+   <h2>A place where voices become community.</h2>
+   <p>Voxistar aims to create a digital space where people can communicate, participate and feel part of something bigger.</p>
+   <ul class="checks">
+    <li>Community-driven experience</li>
+    <li>People-first vision</li>
+    <li>Modern and welcoming environment</li>
+    <li>Built for the future</li>
+   </ul>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="container center">
+  <span class="kicker">The Voxistar experience</span>
+  <h2 class="title">Connect. Create. Belong.</h2>
+  <p class="desc">A few of the things that define the Voxistar experience.</p>
+  <div class="showcase-grid">
+   <div class="showcase"><strong>Live Voice</strong><span>Be heard in real conversations.</span></div>
+   <div class="showcase"><strong>Community</strong><span>Meet and connect with others.</span></div>
+   <div class="showcase"><strong>Events</strong><span>Create memorable moments.</span></div>
+   <div class="showcase"><strong>Growth</strong><span>Build something meaningful.</span></div>
+  </div>
+ </div>
+</section>
+
+<section id="team">
+ <div class="container center">
+  <span class="kicker">Our people</span>
+  <h2 class="title">The team behind Voxistar.</h2>
+  <p class="desc">Passionate people working together to grow the Voxistar vision.</p>
+  <div class="people">
+   <div class="person"><div class="avatar">👑</div><h3>Leadership</h3><p>Vision & Strategy</p></div>
+   <div class="person"><div class="avatar">⚡</div><h3>Operations</h3><p>Community & Operations</p></div>
+   <div class="person"><div class="avatar">💜</div><h3>Community</h3><p>People & Experience</p></div>
+  </div>
+ </div>
+</section>
+
+<section id="careers">
+ <div class="container">
+  <div class="career-wrap">
+   <span class="kicker">Careers at Voxistar</span>
+   <h2>Build the future with us.</h2>
+   <p>We're looking for creative, talented and passionate people who want to help shape the next generation of social voice communities.</p>
+   <a class="btn primary" href="mailto:careers@voxistar.com">View opportunities →</a>
+  </div>
+ </div>
+</section>
+
+<section id="contact">
+ <div class="container center">
+  <span class="kicker">Contact</span>
+  <h2 class="title">Let's build something great.</h2>
+  <p class="desc">For partnerships, careers, community matters or general enquiries, get in touch with Voxistar.</p>
+  <div class="actions" style="justify-content:center;margin-top:25px">
+   <a class="btn primary" href="mailto:contact@voxistar.com">Contact Voxistar</a>
+  </div>
+ </div>
+</section>
+
+<footer>
+ <div class="container">
+  <div class="footer-grid">
+   <div>
+    <div class="brand"><img src="logo.png" class="logo" alt="Voxistar"><span>Voxistar</span></div>
+    <p class="footer-desc">Voice, community and connection — built around people.</p>
+   </div>
+   <div><h4>Company</h4><a href="#about">About</a><a href="#team">Team</a><a href="#careers">Careers</a></div>
+   <div><h4>Explore</h4><a href="#features">Features</a><a href="#home">Home</a><a href="#contact">Contact</a></div>
+   <div><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Community Rules</a></div>
+  </div>
+  <div class="copyright">© 2026 Voxistar. All rights reserved.</div>
+ </div>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById('links').classList.toggle('open')}
+function closeMenu(){document.getElementById('links').classList.remove('open')}
+</script>
+</body>
+</html>
